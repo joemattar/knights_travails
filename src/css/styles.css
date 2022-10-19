@@ -1,0 +1,51 @@
+@font-face {
+  font-family: Anton;
+  src: url("../fonts/Anton-Regular.ttf");
+}
+
+body {
+  font-family: Anton;
+
+  height: 100vh;
+
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  grid-template-rows: 4rem 1fr 5rem 2rem;
+}
+
+.header {
+  font-size: 2rem;
+
+  display: grid;
+  place-content: center;
+}
+
+.instructions {
+  font-size: 1.25rem;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer {
+  font-size: 1.1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.footer a {
+  display: grid;
+  place-content: center;
+}
+
+.footer img {
+  height: 1.25rem;
+
+}
