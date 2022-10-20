@@ -16,10 +16,6 @@
     },
     "rules": {
         "import/prefer-default-export": "off",
-        "indent": [
-            "error",
-            "tab"
-        ],
         "linebreak-style": [
             "error",
             "unix"
