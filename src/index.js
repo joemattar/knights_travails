@@ -34,6 +34,7 @@ movableTargetKnightImg.classList.add("target");
 movableTargetKnightImg.draggable = true;
 movableTargetKnightImg.src = targetKnightImage;
 movableTargetKnightImg.addEventListener("dragstart", knightDragStart);
+movableTargetKnightImg.addEventListener("touchstart", knightDragStart);
 
 // Place initial knight pieces
 placeKnight(movableStartingKnightImg, 4, 4);
@@ -132,6 +133,7 @@ function createChessboard() {
         event.preventDefault();
       });
       newChessboardSquareDiv.addEventListener("drop", knightDrop);
+      newChessboardSquareDiv.addEventListener("touchend", knightDrop);
       if (k % 2 === 0) {
         newChessboardSquareDiv.classList.add("white");
       } else {
