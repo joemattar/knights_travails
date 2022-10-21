@@ -23,6 +23,7 @@ createChessboard();
 // Create interactive knight pieces
 const movableStartingKnightImg = document.createElement("img");
 movableStartingKnightImg.classList.add("draggable");
+movableStartingKnightImg.classList.add("start");
 movableStartingKnightImg.draggable = true;
 movableStartingKnightImg.src = startingKnightImage;
 movableStartingKnightImg.addEventListener("dragstart", knightDragStart);
@@ -36,6 +37,19 @@ movableTargetKnightImg.addEventListener("dragstart", knightDragStart);
 // Place initial knight pieces
 placeKnight(movableStartingKnightImg, 4, 4);
 placeKnight(movableTargetKnightImg, 6, 5);
+
+// Create moves div element
+const movesDiv = document.createElement("div");
+movesDiv.classList.add("moves");
+const movesTextDiv = document.createElement("div");
+movesTextDiv.classList.add("moves-text");
+movesTextDiv.textContent = "Shortest path number of moves: ";
+const movesNumberDiv = document.createElement("div");
+movesNumberDiv.classList.add("moves-number");
+movesNumberDiv.textContent = "1";
+document.body.appendChild(movesDiv);
+movesDiv.appendChild(movesTextDiv);
+movesDiv.appendChild(movesNumberDiv);
 
 // Create instructions div element
 const instructionsDiv = document.createElement("div");
@@ -88,6 +102,14 @@ const footerImg = document.createElement("img");
 footerImg.src = githubImage;
 footerA.appendChild(footerImg);
 
+// Footer a2 element
+const footerA2 = document.createElement("a");
+footerA2.href = "https://www.flaticon.com/free-icons/knight";
+footerA2.title = "knight icons";
+footerA2.textContent = "Knight icons by BZZRINCANTATION";
+footerA2.target = "_blank";
+footer.appendChild(footerA2);
+
 // Function to create/clear chessboard
 function createChessboard() {
   chessboardDiv.textContent = "";
@@ -121,12 +143,13 @@ function createChessboard() {
   }
 }
 
+// Function to select a chessboard square div element
+function getChessboardSquareDiv(row, column) {
+  return document.querySelector(`[data-row="${row}"][data-column="${column}"]`);
+}
 // Function to place knightpiece
 function placeKnight(knight, row, column) {
-  const selectedSquareDiv = document.querySelector(
-    `[data-row="${row}"][data-column="${column}"]`
-  );
-  selectedSquareDiv.appendChild(knight);
+  getChessboardSquareDiv(row, column).appendChild(knight);
 }
 
 // Function to clear chessboard from everything except knights
@@ -146,11 +169,13 @@ function clearChessboard() {
 function knightDragStart(event) {
   // store a ref. on the dragged elem
   dragged = event.target;
+  dragged.classList.add("dragging");
   clearChessboard();
 }
 
 // Function for knight element drop event
 function knightDrop(event) {
+  dragged.classList.remove("dragging");
   // prevent default action (open as link for some elements)
   event.preventDefault();
   // move dragged element to the selected drop target
@@ -160,11 +185,53 @@ function knightDrop(event) {
   ) {
     dragged.parentNode.removeChild(dragged);
     event.target.appendChild(dragged);
+    displayMoves();
+  } else {
+    clearChessboard();
+    displayMoves();
   }
 }
 
-// <a href="https://www.flaticon.com/free-icons/knight" title="knight icons">Knight icons created by BZZRINCANTATION - Flaticon</a>
+// Function to fetch start knight coordinates
+function getStartKnightsLocation() {
+  const startKnight = document.querySelector(".draggable.start").parentNode;
+  return [Number(startKnight.dataset.row), Number(startKnight.dataset.column)];
+}
 
-console.log(shortestPath([4, 2], [6, 6]));
+// Function to fetch target knight coordinates
+function getTargetKnightsLocation() {
+  const targetKnight = document.querySelector(".draggable.target").parentNode;
+  return [
+    Number(targetKnight.dataset.row),
+    Number(targetKnight.dataset.column),
+  ];
+}
 
-console.log(shortestPath([2, 1], [6, 6]));
+// Function to edit the path square divs
+// Each square that represent an intermediate knight move
+function modifySquareDiv(squareDiv, move) {
+  const moveDiv = document.createElement("div");
+  moveDiv.classList.add("move");
+  moveDiv.textContent = move;
+  squareDiv.appendChild(moveDiv);
+}
+
+// Function to perform the shortest path result DOM manipulations
+function displayMoves() {
+  const pathArray = shortestPath(
+    getStartKnightsLocation(),
+    getTargetKnightsLocation()
+  );
+  if (pathArray.length === 2) {
+    movesNumberDiv.textContent = "1";
+  } else {
+    for (let i = 1; i < pathArray.length - 1; i += 1) {
+      let selectedSquareDiv = getChessboardSquareDiv(
+        pathArray[i][0],
+        pathArray[i][1]
+      );
+      modifySquareDiv(selectedSquareDiv, i);
+      movesNumberDiv.textContent = pathArray.length - 1;
+    }
+  }
+}

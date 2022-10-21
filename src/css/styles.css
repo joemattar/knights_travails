@@ -19,7 +19,7 @@ body {
   padding: 0;
 
   display: grid;
-  grid-template-rows: 4rem 5fr 1fr 8rem 2rem;
+  grid-template-rows: 4rem 5fr 1fr 1fr 8rem 2rem;
   justify-content: center;
   justify-items: center;
 }
@@ -70,6 +70,13 @@ body {
 
 .chessboard .square img{
   width: min(7vw, 4rem);
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.chessboard .square img.dragging {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
 }
 
 .chessboard .square img.draggable.target {
@@ -78,6 +85,34 @@ body {
   border-width: 0.25rem;
   border-radius: 1rem;
   border-color: var(--color-chessboard-red);
+}
+
+.chessboard .square .move {
+  height: 2rem;
+  width: 2rem;
+
+  font-size: 1rem;
+  color: var(--color-chessboard-white);
+
+  background-color: var(--color-chessboard-red);
+
+  border-radius: 1rem;
+
+  display: grid;
+  place-content: center;
+}
+
+.moves {
+  margin: 0 5vw;
+
+  font-size: 1.25rem;
+  color: var(--color-chessboard-red);
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .instructions {
@@ -126,8 +161,12 @@ body {
 }
 
 .footer a {
+  color: var(--color-chessboard-black);
+
   display: grid;
   place-content: center;
+
+  text-decoration: none;
 }
 
 .footer img {
