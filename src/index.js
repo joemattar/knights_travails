@@ -27,6 +27,7 @@ movableStartingKnightImg.classList.add("start");
 movableStartingKnightImg.draggable = true;
 movableStartingKnightImg.src = startingKnightImage;
 movableStartingKnightImg.addEventListener("dragstart", knightDragStart);
+movableStartingKnightImg.addEventListener("touchstart", knightDragStart);
 const movableTargetKnightImg = document.createElement("img");
 movableTargetKnightImg.classList.add("draggable");
 movableTargetKnightImg.classList.add("target");
