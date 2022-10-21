@@ -51,6 +51,8 @@ body {
 }
 
 .chessboard .square {
+  position: relative;
+
   width: min(11vw, 6rem);
   aspect-ratio: 1/1;
 
@@ -71,6 +73,7 @@ body {
 }
 
 .chessboard .square img.draggable.target {
+  padding: 0.25rem;
   border-style: solid;
   border-width: 0.25rem;
   border-radius: 1rem;

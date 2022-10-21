@@ -2,6 +2,7 @@ import "./css/styles.css";
 import githubImage from "./images/github_logo.png";
 import startingKnightImage from "./images/knight-gold.png";
 import targetKnightImage from "./images/knight-green.png";
+import { shortestPath } from "./knights_travails_algorithm.js";
 
 let dragged;
 
@@ -163,3 +164,7 @@ function knightDrop(event) {
 }
 
 // <a href="https://www.flaticon.com/free-icons/knight" title="knight icons">Knight icons created by BZZRINCANTATION - Flaticon</a>
+
+console.log(shortestPath([4, 2], [6, 6]));
+
+console.log(shortestPath([2, 1], [6, 6]));
