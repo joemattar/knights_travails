@@ -188,6 +188,7 @@ function knightDrop(event) {
   ) {
     dragged.parentNode.removeChild(dragged);
     event.target.appendChild(dragged);
+    clearChessboard();
     displayMoves();
   } else {
     clearChessboard();
@@ -220,6 +221,7 @@ function modifySquareDiv(squareDiv, move) {
 }
 
 // Function to perform the shortest path result DOM manipulations
+// ie Display the intermediate knight moves
 function displayMoves() {
   const pathArray = shortestPath(
     getStartKnightsLocation(),
